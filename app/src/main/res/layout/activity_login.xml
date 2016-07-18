@@ -12,7 +12,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/edUsuario"
+        android:id="@+id/etUsuario"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
@@ -21,18 +21,19 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/edSenha"
-        android:layout_below="@+id/edUsuario"
+        android:id="@+id/etSenha"
+        android:layout_below="@+id/etUsuario"
         android:layout_alignParentStart="true"
-        android:layout_alignEnd="@+id/edUsuario"
-        android:hint="@string/senha"/>
+        android:layout_alignEnd="@+id/etUsuario"
+        android:hint="@string/senha"
+        android:inputType="textPassword" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/acessar"
-        android:id="@+id/btAcessar"
-        android:layout_below="@+id/edSenha"
+        android:id="@+id/bSignIn"
+        android:layout_below="@+id/etSenha"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>
