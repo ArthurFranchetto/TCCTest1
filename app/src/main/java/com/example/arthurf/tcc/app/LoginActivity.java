@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
     private static final int REQUEST_READ_CONTACTS = 0;
     private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world", "admin@admin.com:admin"
+            "arthur.franchetto@gmail.com:admin", "guilherme.pelin@gmail.com:admin", "patricia.akemyy@gmail.com:admin"
     };
 
     private UserLoginTask mAuthTask = null;
