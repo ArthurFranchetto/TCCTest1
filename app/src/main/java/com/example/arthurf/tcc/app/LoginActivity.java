@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
     private static final int REQUEST_READ_CONTACTS = 0;
     private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "arthur.franchetto@gmail.com:admin", "guilherme.pelin@gmail.com:admin", "patricia.akemyy@gmail.com:admin"
+            "arthur.franchetto@gmail.com:admin", "guilherme.pelin@gmail.com:admin2", "patricia.akemyy@gmail.com:admin3"
     };
 
     private UserLoginTask mAuthTask = null;
@@ -210,6 +210,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
+    private boolean isEmailValid(String email) {
+        //TODO: Replace this with your own logic
+        return email.contains("@");
+    }
 
     private void attemptLogin() {
 
@@ -235,6 +239,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
             cancel = true;
         }
 
+        // Check for a valid email address.
+        if (TextUtils.isEmpty(email)) {
+            username.setError(getString(R.string.error_field_required));
+            focusView = username;
+            cancel = true;
+        } else if (!isEmailValid(email)) {
+            username.setError(getString(R.string.error_invalid_email));
+            focusView = username;
+            cancel = true;
+        }
+
 
         if (cancel) {
             // There was an error; don't attempt login and focus the first
@@ -244,6 +259,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
+            if (email.length() <= 1) {
+                email = email.toLowerCase();
+            } else {
+                email = email.substring(0, 1).toLowerCase() + email.substring(1);
+            }
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
         }
@@ -295,7 +315,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
             }
 
             // TODO: register the new account here.
-            return true;
+            return false;
         }
 
         @Override
