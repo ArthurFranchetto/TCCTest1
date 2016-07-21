@@ -219,6 +219,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
         String email = username.getText().toString();
         String password = mPassword.getText().toString();
 
+        email = email.replaceAll(" ", "");
+
         boolean cancel = false;
         View focusView = null;
 
