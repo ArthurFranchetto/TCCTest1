@@ -1,9 +1,8 @@
-package com.example.arthurf.tcc.app;
+package com.example.arthurf.tcc.app.Controller;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.AlertDialog;
 import android.app.LoaderManager;
 import android.content.Intent;
 import android.content.Loader;
@@ -22,19 +21,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.support.design.widget.Snackbar;
-import android.content.Intent;
 
-import com.example.arthurf.tcc.app.UserArea;
-
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.example.arthurf.tcc.app.R;
 
 import java.util.List;
-import java.util.Map;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -42,7 +32,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
     private static final int REQUEST_READ_CONTACTS = 0;
     private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "arthur.franchetto@gmail.com:admin", "guilherme.pelin@gmail.com:admin2", "patricia.akemyy@gmail.com:admin3"
+            "arthur.franchetto@gmail.com:admin", "guilhermepelin@gmail.com:admin2", "patricia.akemyy@gmail.com:admin3", "admin@admin:admin"
     };
 
     private UserLoginTask mAuthTask = null;
@@ -324,7 +314,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
             showProgress(false);
 
             if (success) {
-              Intent intent = new Intent(LoginActivity.this, UserArea.class);
+              Intent intent = new Intent(LoginActivity.this, UserAreaActivity.class);
                 startActivity(intent);
             } else {
                 mPassword.setError(getString(R.string.error_incorrect_password));
@@ -338,4 +328,25 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
             showProgress(false);
         }
     }
+
+    /**
+     * Created by ArthurF on 18/07/16.
+     */
+   /* public static class LoginRequest extends StringRequest {
+        private static final String LOGIN_REQUEST_URL = "http://tg12.comli.com/Login.php";
+        private Map<String, String> params;
+
+        public LoginRequest(String username, String password, Response.Listener<String> listener){
+            super(Method.POST, LOGIN_REQUEST_URL, listener, null);
+            params= new HashMap<>();
+            params.put("username", username);
+            params.put("password", password);
+        }
+
+        @Override
+        public Map<String, String> getParams(){
+            return params;
+        }
+
+    }*/
 }

@@ -1,22 +1,21 @@
 <resources>
     <string name="app_name">TCC</string>
 
-    <string name="hello">Hello World</string>
-
     <string name="usuario">Email</string>
     <string name="senha">Senha</string>
     <string name="acessar">Acessar</string>
 
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
-
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
     <string name="error_invalid_password">Senha inválida</string>
-
     <string name="error_field_required">É necessário preencher este campo</string>
-
     <string name="error_incorrect_password">Usuário e/ou senha incorreto(s)</string>
-
     <string name="error_invalid_email">Email inválido</string>
+
+    <string name="bem_vindo">Bem vindo</string>
+    <string name="lista_convidados">Lista de convidados</string>
+    <string name="ocorrencias">Ocorrências</string>
+    <string name="anuncios">Anúncios</string>
+    <string name="locacao">Locação do salão</string>
+
 
 </resources>

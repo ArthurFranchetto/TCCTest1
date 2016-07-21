@@ -11,14 +11,19 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity">
+        <activity android:name=".Controller.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UserArea"></activity>
+        <activity android:name=".Controller.UserAreaActivity" />
+        <activity android:name=".Controller.ListaDeConvidadosActivity" />
+        <activity android:name=".Controller.OcorrenciasActivity" />
+        <activity android:name=".Controller.AnunciosActivity" />
+        <activity android:name=".Controller.ReuniaoActivity" />
+        <activity android:name=".Controller.LocacaoActivity"></activity>
     </application>
 
 </manifest>
