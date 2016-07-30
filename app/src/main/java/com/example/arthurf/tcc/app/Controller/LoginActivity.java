@@ -22,9 +22,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.support.design.widget.Snackbar;
 
+
 import com.example.arthurf.tcc.app.R;
 
 import java.util.List;
+
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -32,7 +34,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
     private static final int REQUEST_READ_CONTACTS = 0;
     private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "arthur.franchetto@gmail.com:admin", "guilhermepelin@gmail.com:admin2", "patricia.akemyy@gmail.com:admin3", "admin@admin:admin"
+            "Arthur Franchetto:14/05/1992:arthur.franchetto@gmail.com:1:admin",
+            "Guilherme Pelin:01/01/1992:guilhermepelin@gmail.com:2:admin2",
+            "Patricia Akemy:01/01/1992:patricia.akemy@gmail.com:3:admin3"
     };
 
     private UserLoginTask mAuthTask = null;
@@ -41,6 +45,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
     private EditText mPassword;
     private View mProgressView;
     private View mLoginFormView;
+    public static String nome = null;
+    public static String email = null;
+    public static String data = null;
+    public static String apartamento = null;
 
 
     @Override
@@ -165,6 +173,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
+
         return password.length() > 4;
     }
 
@@ -300,9 +309,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
             for (String credential : DUMMY_CREDENTIALS) {
                 String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
+                if (pieces[2].equals(mEmail)) {
                     // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPasswordU);
+                    nome = pieces[0];
+                    data = pieces[1];
+                    email = pieces[2];
+                    apartamento = pieces[3];
+                    return pieces[4].equals(mPasswordU);
                 }
             }
 
@@ -317,6 +330,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
             if (success) {
               Intent intent = new Intent(LoginActivity.this, UserAreaActivity.class);
+                intent.putExtra("nome", nome);
+                intent.putExtra("data", data);
+                intent.putExtra("email", email);
+                intent.putExtra("apartamento", apartamento);
                 startActivity(intent);
             } else {
                 mPassword.setError(getString(R.string.error_incorrect_password));

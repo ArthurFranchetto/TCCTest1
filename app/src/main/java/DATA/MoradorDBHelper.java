@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 /**
  * Created by ArthurF on 24/07/16.
  */
-public class MoradorDBHelper extends SQLiteOpenHelper {
+/*public class MoradorDBHelper extends SQLiteOpenHelper {
 
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "TCC_SI_M_12.db";
@@ -57,4 +57,4 @@ public class MoradorDBHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_PAIS);
     }
 
-}
+}*/

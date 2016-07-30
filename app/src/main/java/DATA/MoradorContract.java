@@ -5,7 +5,7 @@ import android.provider.BaseColumns;
 /**
  * Created by ArthurF on 24/07/16.
  */
-public class MoradorContract {
+/*public class MoradorContract {
 
     public MoradorContract(){}
 
@@ -18,4 +18,4 @@ public class MoradorContract {
         public static final String COLUMN_NAME_N_APARTAMENTO = "N_APARTAMENTO";
 
     }
-}
+}*/
