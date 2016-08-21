@@ -6,13 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.arthurf.tcc.app.R;
 
-import Model.Morador;
+import model.Morador;
 
 public class UserAreaActivity extends AppCompatActivity {
 

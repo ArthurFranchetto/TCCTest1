@@ -1,8 +1,4 @@
-package DATA;
-
-import android.database.sqlite.SQLiteOpenHelper;
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
+package data;
 
 /**
  * Created by ArthurF on 24/07/16.

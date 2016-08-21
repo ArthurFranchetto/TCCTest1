@@ -1,6 +1,4 @@
-package DATA;
-
-import android.provider.BaseColumns;
+package data;
 
 /**
  * Created by ArthurF on 24/07/16.

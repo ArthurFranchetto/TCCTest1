@@ -1,6 +1,4 @@
-package Model;
-
-import java.util.Date;
+package model;
 
 /**
  * Created by ArthurF on 27/07/16.
@@ -11,6 +9,7 @@ public class Morador {
     String dataNascimento;
     String email;
     int nApartamento;
+    public static final String NAO_ENCONTRADO = "Não encontrado.";
 
 
     public Morador(){
@@ -54,5 +53,13 @@ public class Morador {
 
     public void setnApartamento(int nApartamento) {
         this.nApartamento = nApartamento;
+    }
+
+    public String toString(){
+        return "nome=" + nome + '\'' +
+         "dataNascimento=" + dataNascimento + '\'' +
+         "email=" + email + '\'' +
+         "apartamento=" + nApartamento + '\'' +
+                '}';
     }
 }
