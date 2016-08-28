@@ -1,5 +1,8 @@
 package network;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+
 import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -40,8 +43,6 @@ public class MoradorRequester {
 
         String jsonStr = response.body().string();
 
-        NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
-
         try{
             JSONArray root = new JSONArray(jsonStr);
             JSONObject item = null;
@@ -64,4 +65,12 @@ public class MoradorRequester {
     }
     return lista;
 }
+
+    public boolean isConnected(Context context) {
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) context
+                        .getSystemService(Context.CONNECTIVITY_SERVICE);
+        return connectivityManager.getActiveNetworkInfo() != null
+                && connectivityManager.getActiveNetworkInfo().isConnected();
+    }
 }

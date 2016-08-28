@@ -1,9 +1,11 @@
 package model;
 
+import java.io.Serializable;
+
 /**
  * Created by ArthurF on 27/07/16.
  */
-public class Morador {
+public class Morador implements Comparable<Morador>, Serializable{
 
     String nome;
     String dataNascimento;
@@ -62,4 +64,13 @@ public class Morador {
          "apartamento=" + nApartamento + '\'' +
                 '}';
     }
+
+    @Override
+    public int compareTo(Morador morador){
+        if (email.equals(morador.getEmail())){
+            return 0;
+        }
+        return this.getEmail().compareTo(morador.getEmail());
+    }
+
 }
