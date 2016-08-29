@@ -23,13 +23,15 @@ import model.Morador;
 /**
  * Created by ArthurF on 21/08/16.
  */
-public class MoradorRequester { 
+public class MoradorRequester {
 
     OkHttpClient client = new OkHttpClient();
 
-    public ArrayList<Morador> get(String url, String pEmail) throws IOException{
 
-        ArrayList<Morador> lista = new ArrayList<>();
+
+    public Morador get(String url, String pEmail) throws IOException{
+
+        Morador morador = new Morador();
 
         RequestBody formBody = new FormEncodingBuilder()
                 .add("email", pEmail)
@@ -43,27 +45,30 @@ public class MoradorRequester {
 
         String jsonStr = response.body().string();
 
-        try{
+        try {
             JSONArray root = new JSONArray(jsonStr);
             JSONObject item = null;
-            for (int i = 0; i < root.length(); i++){
-                item = (JSONObject)root.get(i);
+            for (int i = 0; i < root.length(); i++ ) {
+                item = (JSONObject) root.get(i);
 
-                String nome = item.getString("nome");
-                String nascimento = item.getString("nascimento");
-                String email = item.getString("email");
-                int apartamento = item.getInt("apartamento");
-
-                lista.add(new Morador(nome, nascimento, email, apartamento));
+                morador.setNome(item.getString("nome"));
+                morador.setDataNascimento(item.getString("nascimento"));
+                morador.setEmail(item.getString("email"));
+                morador.setnApartamento(item.getInt("apartamento"));
             }
+
         } catch(JSONException e){
             e.printStackTrace();
         }
     finally {
-        if(lista.size() == 0)
-            lista.add(new Morador(Morador.NAO_ENCONTRADO, "10/10/2010", "email", 0));
+        if(morador == null)
+            morador.setDataNascimento("10/10/2010");
+            morador.setEmail("email");
+            morador.setnApartamento(0);
+            morador.setNome("Sem Nome");
+            morador.setDataNascimento("10/10/2010");
     }
-    return lista;
+        return morador;
 }
 
     public boolean isConnected(Context context) {

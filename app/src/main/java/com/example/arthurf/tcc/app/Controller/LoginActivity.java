@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
     public static String apartamento = null;
 
     public MoradorRequester requester;
-    ArrayList<Morador> moradores;
+    Morador morador;
     final String servidor = "192.168.1.101:8080/ValidacaoLoginAndroid.json";
     public Intent intent;
 
@@ -81,56 +81,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
                 attemptLogin();
             }
         });
-
-
-
-
-
-        /*bLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final String username = etUsername.getText().toString();
-                final String password = etPassword.getText().toString();
-
-                // Response received from the server
-                Response.Listener<String> responseListener = new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonResponse = new JSONObject(response);
-                            boolean success = jsonResponse.getBoolean("success");
-
-                            if (success) {
-                                String name = jsonResponse.getString("name");
-
-                                Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class);
-                                intent.putExtra("name", name);
-                                intent.putExtra("username", username);
-                                LoginActivity.this.startActivity(intent);
-                            } else {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                                builder.setMessage("Login Failed")
-                                        .setNegativeButton("Retry", null)
-                                        .create()
-                                        .show();
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                };
-
-                LoginRequest loginRequest = new LoginRequest(username, password, responseListener);
-                RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
-                queue.add(loginRequest);
-
-
-
-                Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class);
-                LoginActivity.this.startActivity(intent);
-            }
-        });*/
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
@@ -248,7 +198,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
     }
 
-    public final static String MORADORES = "MORADORES";
+    public final static String MORADORES = "MORADOR";
 
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
@@ -269,10 +219,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
                 intent = new Intent(LoginActivity.this, UserAreaActivity.class);
 
                 try {
-                    moradores = requester.get("http://" + servidor + "selecao.json", mEmail);
+                    morador = requester.get("http://" + servidor + "selecao.json", mEmail);
 
 
-                            intent.putExtra(MORADORES, moradores);
+                            intent.putExtra("MORADOR", morador);
                             startActivity(intent);
 
                 } catch (IOException e) {
@@ -286,23 +236,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
             return true;
         }
 
-      /*  @Override
-        protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-            showProgress(false);
-
-            if (success) {
-              Intent intent = new Intent(LoginActivity.this, UserAreaActivity.class);
-                intent.putExtra("nome", nome);
-                intent.putExtra("data", data);
-                intent.putExtra("email", email);
-                intent.putExtra("apartamento", apartamento);
-                startActivity(intent);
-            } else {
-                mPassword.setError(getString(R.string.error_incorrect_password));
-                mPassword.requestFocus();
-            }
-        }*/
 
         @Override
         protected void onCancelled() {

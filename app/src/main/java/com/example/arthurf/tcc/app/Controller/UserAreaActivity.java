@@ -18,12 +18,12 @@ import model.Morador;
 public class UserAreaActivity extends AppCompatActivity {
 
     ListView listView;
-    private Morador[] morador;
+    private Morador morador;
     private TextView textView;
     public static String nome ;
     public static String email;
     public static String data;
-    public static String apartamento ;
+    public static int apartamento ;
 
 
 
@@ -32,22 +32,20 @@ public class UserAreaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_area);
 
+        String[] opcoes = new String[]{ "Lista de convidados", "Ocorrências", "Anúncios", "Reunião", "Locação de salão"};
+
         listView = (ListView) findViewById(R.id.list);
 
         textView = (TextView) findViewById(R.id.name);
 
         Intent intent = getIntent();
-        morador = ((ArrayList<Morador>)intent.getSerializableExtra(LoginActivity.MORADORES)).toArray(new Morador[0]);
+        morador = (Morador)intent.getSerializableExtra("MORADOR");
 
 
-        String[] opcoes = new String[]{
-            "Lista de convidados", "Ocorrências", "Anúncios", "Reunião", "Locação de salão"
-        };
-
-        nome = intent.getStringExtra("nome");
-        data = intent.getStringExtra("data");
-        email = intent.getStringExtra("email");
-        apartamento = intent.getStringExtra("apartamento");
+        nome = morador.getNome();
+        data = morador.getDataNascimento();
+        email = morador.getEmail();
+        apartamento = morador.getnApartamento();
 
        /* morador.setNome(nome);
         morador.setDataNascimento(data);
