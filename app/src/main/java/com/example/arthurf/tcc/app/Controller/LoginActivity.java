@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
     public MoradorRequester requester;
     Morador morador;
-    final String servidor = "192.168.1.101:8080/ValidacaoLoginAndroid.json";
+    final String servidor = "192.168.1.101:8080/tcc_SI_M_12 - 07-08-2016_v1s";
     public Intent intent;
 
 
@@ -219,11 +219,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
                 intent = new Intent(LoginActivity.this, UserAreaActivity.class);
 
                 try {
-                    morador = requester.get("http://" + servidor + "selecao.json", mEmail);
+                    morador = requester.get("http://" + servidor + "ValidacaoLoginAndroid.json", mEmail);
 
 
                             intent.putExtra("MORADOR", morador);
-                            startActivity(intent);
+                            if(morador.getValidacao() == true){
+                            startActivity(intent);}
 
                 } catch (IOException e) {
                     e.printStackTrace();

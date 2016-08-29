@@ -11,6 +11,7 @@ public class Morador implements Comparable<Morador>, Serializable{
     String dataNascimento;
     String email;
     int nApartamento;
+    Boolean validacao;
     public static final String NAO_ENCONTRADO = "Não encontrado.";
 
 
@@ -18,11 +19,12 @@ public class Morador implements Comparable<Morador>, Serializable{
 
     }
 
-    public Morador(String nome, String dataNascimento, String email, int nApartamento){
+    public Morador(String nome, String dataNascimento, String email, int nApartamento, Boolean validacao){
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.email = email;
         this.nApartamento = nApartamento;
+        validacao = false;
     }
 
     public String getNome() {
@@ -55,6 +57,14 @@ public class Morador implements Comparable<Morador>, Serializable{
 
     public void setnApartamento(int nApartamento) {
         this.nApartamento = nApartamento;
+    }
+
+    public Boolean getValidacao(){
+        return validacao;
+    }
+
+    public void setValidacao(Boolean validacao){
+        this.validacao = validacao;
     }
 
     public String toString(){

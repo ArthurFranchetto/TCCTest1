@@ -33,6 +33,8 @@ public class MoradorRequester {
 
         Morador morador = new Morador();
 
+        Boolean validacao = false;
+
         RequestBody formBody = new FormEncodingBuilder()
                 .add("email", pEmail)
                 .build();
@@ -51,10 +53,12 @@ public class MoradorRequester {
             for (int i = 0; i < root.length(); i++ ) {
                 item = (JSONObject) root.get(i);
 
-                morador.setNome(item.getString("nome"));
-                morador.setDataNascimento(item.getString("nascimento"));
+                morador.setNome(item.getString("nome_completo"));
+                morador.setDataNascimento(item.getString("data_nascimento"));
+                morador.setnApartamento(item.getInt("n_apartamento"));
                 morador.setEmail(item.getString("email"));
-                morador.setnApartamento(item.getInt("apartamento"));
+                morador.setValidacao((Boolean) item.get("validacao"));
+
             }
 
         } catch(JSONException e){
@@ -67,6 +71,7 @@ public class MoradorRequester {
             morador.setnApartamento(0);
             morador.setNome("Sem Nome");
             morador.setDataNascimento("10/10/2010");
+            morador.setValidacao(true);
     }
         return morador;
 }

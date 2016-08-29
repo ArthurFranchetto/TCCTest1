@@ -24,7 +24,7 @@ public class UserAreaActivity extends AppCompatActivity {
     public static String email;
     public static String data;
     public static int apartamento ;
-
+    public static Boolean validacao;
 
 
     @Override
@@ -46,6 +46,7 @@ public class UserAreaActivity extends AppCompatActivity {
         data = morador.getDataNascimento();
         email = morador.getEmail();
         apartamento = morador.getnApartamento();
+        validacao = morador.getValidacao();
 
        /* morador.setNome(nome);
         morador.setDataNascimento(data);
