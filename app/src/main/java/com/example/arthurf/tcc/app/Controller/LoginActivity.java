@@ -21,12 +21,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.support.design.widget.Snackbar;
+import android.widget.Toast;
 
 
 import com.example.arthurf.tcc.app.R;
 
+import org.w3c.dom.Text;
+
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
+
+import model.Morador;
+import network.MoradorRequester;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -41,7 +49,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
     private UserLoginTask mAuthTask = null;
 
-    private AutoCompleteTextView username;
+    private TextView username;
     private EditText mPassword;
     private View mProgressView;
     private View mLoginFormView;
@@ -50,26 +58,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
     public static String data = null;
     public static String apartamento = null;
 
+    public MoradorRequester requester;
+    ArrayList<Morador> moradores;
+    final String servidor = "192.168.1.101:8080/ValidacaoLoginAndroid.json";
+    public Intent intent;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        username = (AutoCompleteTextView) findViewById(R.id.etUsername);
-        populateAutoComplete();
+        username = (TextView) findViewById(R.id.etUsername);
+
 
         mPassword = (EditText) findViewById(R.id.etPassword);
-        mPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
-                    return true;
-                }
-                return false;
-            }
-        });
 
         Button bLogin = (Button) findViewById(R.id.bSignIn);
         bLogin.setOnClickListener(new View.OnClickListener() {
@@ -133,55 +136,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
         mProgressView = findViewById(R.id.login_progress);
 
     }
-    private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
-        //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(LoginActivity.this,
-                        android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
-
-        username.setAdapter(adapter);
-    }
-
-    private boolean mayRequestContacts() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return true;
-        }
-        if (checkSelfPermission(READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
-            return true;
-        }
-        if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
-            Snackbar.make(username, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(android.R.string.ok, new View.OnClickListener() {
-                        @Override
-                        @TargetApi(Build.VERSION_CODES.M)
-                        public void onClick(View v) {
-                            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
-                        }
-                    });
-        } else {
-            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
-        }
-        return false;
-    }
-
-    private void populateAutoComplete() {
-        if (!mayRequestContacts()) {
-            return;
-        }
-        getLoaderManager().initLoader(0, null, this);
-    }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-
         return password.length() > 4;
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
@@ -210,7 +172,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
         }
     }
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
         return email.contains("@");
     }
 
@@ -251,6 +212,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
             cancel = true;
         }
 
+        if (email.length() <= 1) {
+            email = email.toLowerCase();
+        } else {
+            email = email.substring(0, 1).toLowerCase() + email.substring(1);
+        }
 
         if (cancel) {
             // There was an error; don't attempt login and focus the first
@@ -260,11 +226,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            if (email.length() <= 1) {
-                email = email.toLowerCase();
-            } else {
-                email = email.substring(0, 1).toLowerCase() + email.substring(1);
-            }
+
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
         }
@@ -286,6 +248,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
     }
 
+    public final static String MORADORES = "MORADORES";
+
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
         private final String mEmail;
@@ -298,32 +262,31 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
 
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
+            requester = new MoradorRequester();
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[2].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    nome = pieces[0];
-                    data = pieces[1];
-                    email = pieces[2];
-                    apartamento = pieces[3];
-                    return pieces[4].equals(mPasswordU);
+            if(requester.isConnected(LoginActivity.this)) {
+                intent = new Intent(LoginActivity.this, UserAreaActivity.class);
+
+                try {
+                    moradores = requester.get("http://" + servidor + "selecao.json", mEmail);
+
+
+                            intent.putExtra(MORADORES, moradores);
+                            startActivity(intent);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
+            }else{
+                Toast toast = Toast.makeText(LoginActivity.this, "Rede indisponível!", Toast.LENGTH_LONG);
+                toast.show();
             }
 
-            // TODO: register the new account here.
-            return false;
+            return true;
         }
 
-        @Override
+      /*  @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
             showProgress(false);
@@ -339,33 +302,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
                 mPassword.setError(getString(R.string.error_incorrect_password));
                 mPassword.requestFocus();
             }
-        }
+        }*/
 
         @Override
         protected void onCancelled() {
             mAuthTask = null;
+
             showProgress(false);
         }
     }
 
-    /**
-     * Created by ArthurF on 18/07/16.
-     */
-   /* public static class LoginRequest extends StringRequest {
-        private static final String LOGIN_REQUEST_URL = "http://tg12.comli.com/Login.php";
-        private Map<String, String> params;
 
-        public LoginRequest(String username, String password, Response.Listener<String> listener){
-            super(Method.POST, LOGIN_REQUEST_URL, listener, null);
-            params= new HashMap<>();
-            params.put("username", username);
-            params.put("password", password);
-        }
-
-        @Override
-        public Map<String, String> getParams(){
-            return params;
-        }
-
-    }*/
 }

@@ -11,12 +11,14 @@ import android.widget.TextView;
 
 import com.example.arthurf.tcc.app.R;
 
+import java.util.ArrayList;
+
 import model.Morador;
 
 public class UserAreaActivity extends AppCompatActivity {
 
     ListView listView;
-    private Morador morador = new Morador();
+    private Morador[] morador;
     private TextView textView;
     public static String nome ;
     public static String email;
@@ -34,20 +36,23 @@ public class UserAreaActivity extends AppCompatActivity {
 
         textView = (TextView) findViewById(R.id.name);
 
+        Intent intent = getIntent();
+        morador = ((ArrayList<Morador>)intent.getSerializableExtra(LoginActivity.MORADORES)).toArray(new Morador[0]);
+
+
         String[] opcoes = new String[]{
             "Lista de convidados", "Ocorrências", "Anúncios", "Reunião", "Locação de salão"
         };
 
-        Intent intent = getIntent();
         nome = intent.getStringExtra("nome");
         data = intent.getStringExtra("data");
         email = intent.getStringExtra("email");
         apartamento = intent.getStringExtra("apartamento");
 
-        morador.setNome(nome);
+       /* morador.setNome(nome);
         morador.setDataNascimento(data);
         morador.setEmail(email);
-        morador.setnApartamento(Integer.parseInt(apartamento));
+        morador.setnApartamento(Integer.parseInt(apartamento));*/
 
         textView.setText(nome);
 
