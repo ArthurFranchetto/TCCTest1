@@ -23,7 +23,7 @@ import model.Morador;
 /**
  * Created by ArthurF on 21/08/16.
  */
-public class MoradorRequester {
+public class MoradorRequester { 
 
     OkHttpClient client = new OkHttpClient();
 
