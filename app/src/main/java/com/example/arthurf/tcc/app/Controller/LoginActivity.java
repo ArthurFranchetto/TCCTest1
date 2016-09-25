@@ -217,12 +217,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
                 intent = new Intent(LoginActivity.this, UserAreaActivity.class);
 
                 try {
-                    morador = requester.get("http://" + servidor + "/ValidacaoLoginAndroid.json", mEmail);
+                    morador = requester.get("http://" + servidor + "/ValidacaoLoginAndroid.json", mEmail, mPasswordU);
 
 
                             intent.putExtra("MORADOR", morador);
-                            //if(morador.getValidacao() == true){
-                            startActivity(intent);//}
+                            if(morador.getValidacao() == true){
+                            startActivity(intent);}
 
                 } catch (IOException e) {
                     e.printStackTrace();

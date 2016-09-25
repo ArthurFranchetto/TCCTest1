@@ -29,7 +29,7 @@ public class MoradorRequester {
 
 
 
-    public Morador get(String url, String pEmail) throws IOException{
+    public Morador get(String url, String pEmail, String pPassword) throws IOException{
 
         Morador morador = new Morador();
 
@@ -37,6 +37,7 @@ public class MoradorRequester {
 
         RequestBody formBody = new FormEncodingBuilder()
                 .add("email", pEmail)
+                .add("senha", pPassword)
                 .build();
         Request request = new Request.Builder()
                 .url(url)
@@ -71,7 +72,7 @@ public class MoradorRequester {
             morador.setnApartamento(0);
             morador.setNome("Sem Nome");
             morador.setDataNascimento("10/10/2010");
-            morador.setValidacao(false);
+            morador.setValidacao(true);
     }
         return morador;
 }
