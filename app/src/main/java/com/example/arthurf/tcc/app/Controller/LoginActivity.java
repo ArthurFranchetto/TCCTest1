@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
     public MoradorRequester requester;
     Morador morador;
-    final String servidor = "192.168.1.101:8080/tcc_SI_M_12 - 07-08-2016_v1s";
+    final String servidor = "192.168.1.102:8080/tcc_SI_M_12_-_07-08-2016_v1";
     public Intent intent;
 
 
@@ -198,8 +198,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
     }
 
-    public final static String MORADORES = "MORADOR";
-
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
         private final String mEmail;
@@ -219,12 +217,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
                 intent = new Intent(LoginActivity.this, UserAreaActivity.class);
 
                 try {
-                    morador = requester.get("http://" + servidor + "ValidacaoLoginAndroid.json", mEmail);
+                    morador = requester.get("http://" + servidor + "/ValidacaoLoginAndroid.json", mEmail);
 
 
                             intent.putExtra("MORADOR", morador);
-                            if(morador.getValidacao() == true){
-                            startActivity(intent);}
+                            //if(morador.getValidacao() == true){
+                            startActivity(intent);//}
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -234,7 +232,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
                 toast.show();
             }
 
-            return true;
+            return false;
         }
 
 
