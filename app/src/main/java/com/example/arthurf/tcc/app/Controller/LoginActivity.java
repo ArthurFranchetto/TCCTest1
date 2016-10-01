@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
     public MoradorRequester requester;
     Morador morador;
-    final String servidor = "192.168.1.102:8080/tcc_SI_M_12_-_07-08-2016_v1";
+    final String servidor = "10.0.2.2:8080/ProjetoTCC";
     public Intent intent;
 
 

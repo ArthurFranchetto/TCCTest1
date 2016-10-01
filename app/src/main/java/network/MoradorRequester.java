@@ -35,8 +35,8 @@ public class MoradorRequester {
 
         Boolean validacao = false;
 
-        RequestBody formBody = new FormEncodingBuilder()
-                .add("email", pEmail)
+        RequestBody formBody = new FormEncodingBuilder() //form
+                .add("login", pEmail)
                 .add("senha", pPassword)
                 .build();
         Request request = new Request.Builder()
@@ -66,13 +66,13 @@ public class MoradorRequester {
             e.printStackTrace();
         }
     finally {
-        if(morador == null)
-            morador.setDataNascimento("10/10/2010");
+        if(morador == null){
             morador.setEmail("email");
             morador.setnApartamento(0);
             morador.setNome("Sem Nome");
             morador.setDataNascimento("10/10/2010");
             morador.setValidacao(true);
+        }
     }
         return morador;
 }
