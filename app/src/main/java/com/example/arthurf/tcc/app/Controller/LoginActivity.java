@@ -1,67 +1,41 @@
 package com.example.arthurf.tcc.app.Controller;
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.LoaderManager;
 import android.content.Intent;
 import android.content.Loader;
-import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.support.design.widget.Snackbar;
 import android.widget.Toast;
-
-
 import com.example.arthurf.tcc.app.R;
-
-import org.w3c.dom.Text;
-
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-
 import model.Morador;
 import network.MoradorRequester;
 
-import static android.Manifest.permission.READ_CONTACTS;
 
 public class LoginActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Object> {
 
-    private static final int REQUEST_READ_CONTACTS = 0;
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "Arthur Franchetto:14/05/1992:arthur.franchetto@gmail.com:1:admin",
-            "Guilherme Pelin:01/01/1992:guilhermepelin@gmail.com:2:admin2",
-            "Patricia Akemy:01/01/1992:patricia.akemy@gmail.com:3:admin3"
-    };
-
     private UserLoginTask mAuthTask = null;
-
     private TextView username;
     private EditText mPassword;
     private View mProgressView;
-    private View mLoginFormView;
-    public static String nome = null;
-    public static String email = null;
-    public static String data = null;
-    public static String apartamento = null;
-
+    private View mLoginFormView;;
     public MoradorRequester requester;
-    Morador morador;
-    final String servidor = "10.0.2.2:8080/ProjetoTCC";
+    public Morador morador;
     public Intent intent;
+
+    final String servidor = "10.0.2.2:8080/tcc_SI_M_12_-_02-10-2016_v1";
+
 
 
     @Override
@@ -70,7 +44,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
         setContentView(R.layout.activity_login);
 
         username = (TextView) findViewById(R.id.etUsername);
-
 
         mPassword = (EditText) findViewById(R.id.etPassword);
 
@@ -91,36 +64,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
         return password.length() > 4;
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-    private void showProgress(final boolean show) {
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mLoginFormView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-                }
-            });
-
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mProgressView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-                }
-            });
-        } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-        }
-    }
     private boolean isEmailValid(String email) {
         return email.contains("@");
     }
@@ -179,9 +122,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
+
         }
     }
 
+    public final boolean isCancelled() {
+        return true;
+    }
 
     @Override
     public Loader<Object> onCreateLoader(int i, Bundle bundle) {
@@ -223,6 +170,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
                             intent.putExtra("MORADOR", morador);
                             if(morador.getValidacao() == true){
                             startActivity(intent);}
+                            else{
+                                cancel(true);
+                            }
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -232,6 +182,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
                 toast.show();
             }
 
+            Snackbar.make(findViewById(android.R.id.content), "Usuário e/ou senha inválido(s)", Snackbar.LENGTH_LONG)
+                    .setActionTextColor(Color.RED)
+                    .show();
+            cancel(true);
             return false;
         }
 
@@ -241,6 +195,37 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
             mAuthTask = null;
 
             showProgress(false);
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+    private void showProgress(final boolean show) {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+            mLoginFormView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+                }
+            });
+
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mProgressView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+        } else {
+            // The ViewPropertyAnimator APIs are not available, so simply show
+            // and hide the relevant UI components.
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
 
