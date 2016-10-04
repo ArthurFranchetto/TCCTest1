@@ -44,11 +44,11 @@ public class AnunciosActivity extends AppCompatActivity {
             list = new ArrayList<Anuncio>();
             Resources res = c.getResources();
 
-           String[] titles =  res.getStringArray(R.array.titles);
-           String[] description = res.getStringArray(R.array.description);
+           String[] titles =  res.getStringArray(R.array.titlesAnuncios);
+           String[] description = res.getStringArray(R.array.descriptionAnuncios);
            int[] images = {R.drawable.fuck};
 
-            for(int i = 0; i < titles.length; i++){
+            for(int i = 0; i < 10; i++){
                 list.add(anuncio = new Anuncio(titles[i], description[i], images[0]));
             }
         }
@@ -80,9 +80,9 @@ public class AnunciosActivity extends AppCompatActivity {
 
             Anuncio temp = list.get(i);
 
-            temp.setTitles(temp.titles);
-            temp.setDescriptions(temp.descriptions);
-            temp.setImages(temp.images);
+            temp.setTitles(temp.getTitles());
+            temp.setDescriptions(temp.getDescriptions());
+            temp.setImages(temp.getImages());
 
             return row;
         }
