@@ -48,7 +48,7 @@ public class AnunciosActivity extends AppCompatActivity {
            String[] description = res.getStringArray(R.array.descriptionAnuncios);
            int[] images = {R.drawable.fuck};
 
-            for(int i = 0; i < 10; i++){
+            for(int i = 0; i < titles.length; i++){
                 list.add(anuncio = new Anuncio(titles[i], description[i], images[0]));
             }
         }
@@ -60,8 +60,8 @@ public class AnunciosActivity extends AppCompatActivity {
 
         @Override
         public Object getItem(int i) {
-            return list.get(i);
-        }
+        return list.get(i);
+    }
 
         @Override
         public long getItemId(int i) {
@@ -80,9 +80,9 @@ public class AnunciosActivity extends AppCompatActivity {
 
             Anuncio temp = list.get(i);
 
-            temp.setTitles(temp.getTitles());
-            temp.setDescriptions(temp.getDescriptions());
-            temp.setImages(temp.getImages());
+            title.setText(temp.getTitles());
+            description.setText(temp.getDescriptions());
+            images.setImageResource(temp.getImages());
 
             return row;
         }
