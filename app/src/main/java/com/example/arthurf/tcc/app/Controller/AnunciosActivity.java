@@ -1,12 +1,14 @@
 package com.example.arthurf.tcc.app.Controller;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -29,6 +31,23 @@ public class AnunciosActivity extends AppCompatActivity {
         setContentView(R.layout.activity_anuncios);
         list = (ListView) findViewById(R.id.listViewAnuncios);
         list.setAdapter(new VivzAdapter(this));
+
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+                // manda para a tela de detalhe
+                Intent intent = new Intent(AnunciosActivity.this, DescricaoAnuncioActivity.class);
+                anuncio = (Anuncio) list.getItemAtPosition(position);
+                intent.putExtra("LISTA", anuncio);
+                startActivity(intent);
+
+            }
+
+        });
+
     }
 
 
@@ -87,4 +106,5 @@ public class AnunciosActivity extends AppCompatActivity {
             return row;
         }
     }
+
 }

@@ -17,6 +17,8 @@
     <string name="anuncios">Anúncios</string>
     <string name="locacao">Locação do salão</string>
 
+    <string name="lista_eventos">Lista de Eventos</string>
+
     <string-array name="titlesAnuncios">
         <item>Item 1</item>
         <item>Item 2</item>

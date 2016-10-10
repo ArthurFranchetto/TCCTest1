@@ -23,7 +23,9 @@
         <activity android:name=".Controller.OcorrenciasActivity" />
         <activity android:name=".Controller.AnunciosActivity" />
         <activity android:name=".Controller.ReuniaoActivity" />
-        <activity android:name=".Controller.LocacaoActivity"></activity>
+        <activity android:name=".Controller.LocacaoActivity" />
+        <activity android:name=".Controller.EventosActivity" />
+        <activity android:name=".Controller.DescricaoAnuncioActivity"></activity>
     </application>
 
 </manifest>

@@ -48,11 +48,6 @@ public class UserAreaActivity extends AppCompatActivity {
         apartamento = morador.getnApartamento();
         validacao = morador.getValidacao();
 
-       /* morador.setNome(nome);
-        morador.setDataNascimento(data);
-        morador.setEmail(email);
-        morador.setnApartamento(Integer.parseInt(apartamento));*/
-
         textView.setText(nome);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, opcoes);
@@ -75,7 +70,7 @@ public class UserAreaActivity extends AppCompatActivity {
 
 
                 if (itemPosition == 0){
-                    intent = new Intent(UserAreaActivity.this, ListaDeConvidadosActivity.class);
+                    intent = new Intent(UserAreaActivity.this, EventosActivity.class);
                     UserAreaActivity.this.startActivity(intent);
                 } else if (itemPosition == 1){
                     intent = new Intent(UserAreaActivity.this, OcorrenciasActivity.class);

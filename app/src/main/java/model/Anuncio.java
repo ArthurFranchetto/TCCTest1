@@ -1,9 +1,11 @@
 package model;
 
+import java.io.Serializable;
+
 /**
  * Created by ArthurF on 03/10/16.
  */
-public class Anuncio {
+public class Anuncio implements Comparable<Anuncio>, Serializable {
 
     public String titles;
     public String descriptions;
@@ -43,6 +45,21 @@ public class Anuncio {
         this.descriptions = descriptions;
     }
 
+    @Override
+    public String toString() {
+        return "Anuncio{" +
+                "titles='" + titles + '\'' +
+                ", descriptions='" + descriptions + '\'' +
+                ", images=" + images +
+                '}';
+    }
 
+    @Override
+    public int compareTo(Anuncio anuncio){
+        if (titles.equals(anuncio.getTitles())){
+            return 0;
+        }
+        return this.getTitles().compareTo(anuncio.getTitles());
+    }
 
 }

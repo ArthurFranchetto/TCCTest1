@@ -14,30 +14,25 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.Locale;
 
-import model.Morador;
+import model.ListaDeConvidados;
 
 /**
- * Created by ArthurF on 21/08/16.
+ * Created by ArthurF on 08/10/16.
  */
-public class MoradorRequester {
 
+
+public class ListaDeConvidadosRequester {
     OkHttpClient client = new OkHttpClient();
 
 
 
-    public Morador get(String url, String pEmail, String pPassword) throws IOException{
+    public ListaDeConvidados get(String url, String pEmail) throws IOException{
 
-        Morador morador = new Morador();
-
-        Boolean validacao = false;
+        ListaDeConvidados lista = new ListaDeConvidados();
 
         RequestBody formBody = new FormEncodingBuilder() //form
-                .add("login", pEmail)
-                .add("senha", pPassword)
+                .add("email", pEmail)
                 .build();
         Request request = new Request.Builder()
                 .url(url)
@@ -54,20 +49,18 @@ public class MoradorRequester {
             for (int i = 0; i < root.length(); i++ ) {
                 item = (JSONObject) root.get(i);
 
-                morador.setNome(item.getString("nome_completo"));
-                morador.setDataNascimento(item.getString("data_nascimento"));
-                morador.setEmail(item.getString("email"));
-                morador.setnApartamento(item.getInt("n_apartamento"));
-                morador.setValidacao((Boolean) item.get("validacao"));
-
+                lista.setId(item.getInt("id"));
+                lista.setId_locacao(item.getInt("id_locacao"));
+                lista.setNome(item.getString("nome"));
+                lista.setData(item.getString("data"));
             }
 
         } catch(JSONException e){
             e.printStackTrace();
         }
 
-        return morador;
-}
+        return lista;
+    }
 
     public boolean isConnected(Context context) {
         ConnectivityManager connectivityManager =
@@ -77,3 +70,5 @@ public class MoradorRequester {
                 && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 }
+
+
