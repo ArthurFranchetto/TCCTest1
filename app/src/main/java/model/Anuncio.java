@@ -7,18 +7,40 @@ import java.io.Serializable;
  */
 public class Anuncio implements Comparable<Anuncio>, Serializable {
 
+    int id;
+    String nomeMorador;
+    String anunciante;
     public String titles;
+    String categoria;
     public String descriptions;
-    public int images;
+    int telefone;
+    String email;
+    String data;
+    //public int images;
 
     public Anuncio(){
 
     }
 
-    public Anuncio(String titles, String descriptions, int images){
+    public Anuncio(int id, String nomeMorador, String anunciante, String titles, String categoria, String descriptions, int telefone, String email, String data/*,int images*/) {
+        this.id = id;
+        this.nomeMorador = nomeMorador;
+        this.anunciante = anunciante;
         this.titles = titles;
+        this.categoria = categoria;
         this.descriptions = descriptions;
-        this.images = images;
+        this.telefone = telefone;
+        this.email = email;
+        this.data = data;
+        //this.images = images;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitles() {
@@ -29,14 +51,6 @@ public class Anuncio implements Comparable<Anuncio>, Serializable {
         this.titles = titles;
     }
 
-    public int getImages() {
-        return images;
-    }
-
-    public void setImages(int images) {
-        this.images = images;
-    }
-
     public String getDescriptions() {
         return descriptions;
     }
@@ -45,12 +59,75 @@ public class Anuncio implements Comparable<Anuncio>, Serializable {
         this.descriptions = descriptions;
     }
 
+   /* public int getImages() {
+        return images;
+    }
+
+    public void setImages(int images) {
+        this.images = images;
+    }*/
+
+    public String getNomeMorador() {
+        return nomeMorador;
+    }
+
+    public void setNomeMorador(String nomeMorador) {
+        this.nomeMorador = nomeMorador;
+    }
+
+    public String getAnunciante() {
+        return anunciante;
+    }
+
+    public void setAnunciante(String anunciante) {
+        this.anunciante = anunciante;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public int getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(int telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
     @Override
     public String toString() {
         return "Anuncio{" +
-                "titles='" + titles + '\'' +
+                "id='" + id + '\''+
+                "nomeMorador='" + nomeMorador + '\'' +
+                ", anunciante='" + anunciante + '\'' +
+                ", titles='" + titles + '\'' +
+                ", categoria='" + categoria + '\'' +
                 ", descriptions='" + descriptions + '\'' +
-                ", images=" + images +
+                ", telefone=" + telefone +
+                ", email='" + email + '\'' +
+                ", data='" + data + '\'' +
+                //", images=" + images +
                 '}';
     }
 

@@ -16,8 +16,10 @@ import com.example.arthurf.tcc.app.R;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import model.Anuncio;
 import model.Morador;
 import model.Reuniao;
+import network.AnuncioRequester;
 import network.ReuniaoRequester;
 
 public class UserAreaActivity extends AppCompatActivity {
@@ -32,11 +34,13 @@ public class UserAreaActivity extends AppCompatActivity {
     public static Boolean validacao;
     final String servidor = "10.0.2.2:8080/tcc_SI_M_12_-_18-10-2016_v1";
     ReuniaoRequester requester;
+    AnuncioRequester requesterAnuncios;
     Intent intent;
     ProgressBar mProgress;
     ArrayList<Reuniao> reunioes;
+    ArrayList<Anuncio> anuncios;
     public final static String REUNIOES = "model.Reunião";
-
+    public final static String ANUNCIOS = "model.Anuncios";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,8 +93,9 @@ public class UserAreaActivity extends AppCompatActivity {
                     intent = new Intent(UserAreaActivity.this, OcorrenciasActivity.class);
                     UserAreaActivity.this.startActivity(intent);
                 } else if (itemPosition == 2){
-                    intent = new Intent(UserAreaActivity.this, AnunciosActivity.class);
-                    UserAreaActivity.this.startActivity(intent);
+
+                    consultarAnuncio(view);
+
                 } else if (itemPosition == 3){
 
                     consultarReuniao(view);
@@ -126,6 +131,41 @@ public class UserAreaActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 intent.putExtra(REUNIOES, reunioes);
+                                mProgress.setVisibility(View.INVISIBLE);
+                                startActivity(intent);
+                            }
+                        });
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        } else {
+            Toast toast = Toast.makeText(this, "Rede indisponível!", Toast.LENGTH_LONG);
+            toast.show();
+        }
+    }
+
+    public void consultarAnuncio(View view) {
+
+        final String pEmail = email;
+
+
+        requesterAnuncios = new AnuncioRequester();
+        if(requesterAnuncios.isConnected(this)) {
+            intent = new Intent(this, AnunciosActivity.class);
+
+            mProgress.setVisibility(View.VISIBLE);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        anuncios = requesterAnuncios.get("http://" + servidor + "/AnuncioAndroid.json", pEmail);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                intent.putExtra(ANUNCIOS, anuncios);
                                 mProgress.setVisibility(View.INVISIBLE);
                                 startActivity(intent);
                             }

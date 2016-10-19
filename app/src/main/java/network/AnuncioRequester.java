@@ -14,8 +14,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Locale;
 
+import model.Anuncio;
 import model.ListaDeConvidados;
+import model.Reuniao;
 
 /**
  * Created by ArthurF on 08/10/16.
@@ -25,13 +30,11 @@ import model.ListaDeConvidados;
 public class AnuncioRequester {
     OkHttpClient client = new OkHttpClient();
 
+    public ArrayList<Anuncio> get(String url, String pEmail) throws IOException{
 
+        ArrayList<Anuncio> lista = new ArrayList<>();
 
-    public ListaDeConvidados get(String url, String pEmail) throws IOException{
-
-        ListaDeConvidados lista = new ListaDeConvidados();
-
-        RequestBody formBody = new FormEncodingBuilder() //form
+        RequestBody formBody = new FormEncodingBuilder()
                 .add("email", pEmail)
                 .build();
         Request request = new Request.Builder()
@@ -43,27 +46,33 @@ public class AnuncioRequester {
 
         String jsonStr = response.body().string();
 
+        NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt","BR"));
         try {
             JSONArray root = new JSONArray(jsonStr);
             JSONObject item = null;
             for (int i = 0; i < root.length(); i++ ) {
-                item = (JSONObject) root.get(i);
+                item = (JSONObject)root.get(i);
 
-                lista.setId(item.getInt("id"));
-                lista.setId_locacao(item.getInt("nomeMorador"));
-                lista.setNome(item.getString("anunciante"));
-                lista.setData(item.getString("titulo"));
-                lista.setData(item.getString("categoria"));
-                lista.setData(item.getString("descricao"));
-                lista.setData(item.getString("telefone"));
-                lista.setData(item.getString("email"));
-                lista.setData(item.getString("data"));
+                int id = item.getInt("id");
+                String nomeMorador = item.getString("nomeMorador");
+                String anunciante = item.getString("anunciante");
+                String titulo = item.getString("titulo");
+                String categoria = item.getString("categoria");
+                String descricao = item.getString("descricao");
+                int telefone = item.getInt("telefone");
+                String email = item.getString("email");
+                String data = item.getString("data");
+
+                lista.add(new Anuncio(id, nomeMorador, anunciante, titulo, categoria, descricao, telefone, email, data));
             }
-
         } catch(JSONException e){
             e.printStackTrace();
         }
-
+        finally {
+            if(lista.size() == 0)
+                lista.add(new Anuncio(0, "Não encontrado", "Sem anunciante", "Sem titulo", "Sem categoria", "Sem descricao",
+               0, "Sem email", "Sem data" ));
+        }
         return lista;
     }
 
@@ -74,6 +83,7 @@ public class AnuncioRequester {
         return connectivityManager.getActiveNetworkInfo() != null
                 && connectivityManager.getActiveNetworkInfo().isConnected();
     }
-}
 
+
+}
 

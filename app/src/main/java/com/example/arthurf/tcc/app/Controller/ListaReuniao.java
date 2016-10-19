@@ -36,12 +36,11 @@ public class ListaReuniao extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.editTextListaDeReuniões);
         atividade = this;
 
-
         //pega a mensagem do intent
         Intent intent = getIntent();
         reunioes = ((ArrayList<Reuniao>)intent.getSerializableExtra(UserAreaActivity.REUNIOES)).toArray(new Reuniao[0]);
 
-        //cria o listview de cervejas
+        //cria o listview de reunião
         listView = (ListView) findViewById(R.id.listListaDeReunioes);
 
         for (int i = 0; i < reunioes.length; i++)

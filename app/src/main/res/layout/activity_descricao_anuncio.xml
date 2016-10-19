@@ -12,8 +12,19 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/textViewDescricaoAnuncio"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Anúncio"
+        android:id="@+id/anuncio_TextTitulo"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/textView"
+        android:layout_below="@+id/anuncio_TextTitulo"
+        android:layout_toStartOf="@+id/anuncio_TextTitulo" />
+
 </RelativeLayout>

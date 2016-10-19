@@ -1,5 +1,6 @@
 package com.example.arthurf.tcc.app.Controller;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -22,36 +24,62 @@ import model.Anuncio;
 
 public class AnunciosActivity extends AppCompatActivity {
 
-    public ListView list;
     public Anuncio anuncio;
+    ListView listView;
+    Activity atividade;
+    public final static String ANUNCIO = "model.Anuncio";
+    Anuncio[] anuncios;
+    ArrayList<String> titulos = new ArrayList<String>();
+    public String titulo;
+    private TextView textView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anuncios);
-        list = (ListView) findViewById(R.id.listViewAnuncios);
-        list.setAdapter(new VivzAdapter(this));
 
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView = (ListView) findViewById(R.id.listViewAnuncios);
+        atividade = this;
+
+        //pega a mensagem do intent
+        Intent intent = getIntent();
+        anuncios = ((ArrayList<Anuncio>)intent.getSerializableExtra(UserAreaActivity.ANUNCIOS)).toArray(new Anuncio[0]);
+
+        //cria o listview de anuncios
+        listView = (ListView) findViewById(R.id.listViewAnuncios);
+
+        for (int i = 0; i < anuncios.length; i++)
+        {
+            anuncio = anuncios[i];
+            titulos.add (anuncio.getTitles());
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, titulos);
+
+
+        listView.setAdapter(adapter);
+
+        // listener de click em um item do listview
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
                 // manda para a tela de detalhe
-                Intent intent = new Intent(AnunciosActivity.this, DescricaoAnuncioActivity.class);
-                anuncio = (Anuncio) list.getItemAtPosition(position);
-                intent.putExtra("LISTA", anuncio);
+                Intent intent = new Intent(atividade, DescricaoAnuncioActivity.class);
+                intent.putExtra(ANUNCIO, anuncios[position]);
+
                 startActivity(intent);
 
             }
 
         });
-
     }
 
 
-    class VivzAdapter extends BaseAdapter
+ /*   class VivzAdapter extends BaseAdapter
     {
 
         ArrayList<Anuncio> list;
@@ -105,6 +133,6 @@ public class AnunciosActivity extends AppCompatActivity {
 
             return row;
         }
-    }
+    }*/
 
 }
