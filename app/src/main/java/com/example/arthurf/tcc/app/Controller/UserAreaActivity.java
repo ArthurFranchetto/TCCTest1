@@ -7,13 +7,18 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.arthurf.tcc.app.R;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import model.Morador;
+import model.Reuniao;
+import network.ReuniaoRequester;
 
 public class UserAreaActivity extends AppCompatActivity {
 
@@ -25,6 +30,12 @@ public class UserAreaActivity extends AppCompatActivity {
     public static String data;
     public static int apartamento ;
     public static Boolean validacao;
+    final String servidor = "10.0.2.2:8080/tcc_SI_M_12_-_18-10-2016_v1";
+    ReuniaoRequester requester;
+    Intent intent;
+    ProgressBar mProgress;
+    ArrayList<Reuniao> reunioes;
+    public final static String REUNIOES = "model.Reunião";
 
 
     @Override
@@ -41,6 +52,8 @@ public class UserAreaActivity extends AppCompatActivity {
         Intent intent = getIntent();
         morador = (Morador)intent.getSerializableExtra("MORADOR");
 
+        mProgress = (ProgressBar) findViewById(R.id.carregando);
+        mProgress.setVisibility(View.INVISIBLE);
 
         nome = morador.getNome();
         data = morador.getDataNascimento();
@@ -66,7 +79,7 @@ public class UserAreaActivity extends AppCompatActivity {
 
                 // ListView Clicked item index
                 int itemPosition = position;
-                Intent intent = new Intent();
+                Intent intent;
 
 
                 if (itemPosition == 0){
@@ -79,8 +92,9 @@ public class UserAreaActivity extends AppCompatActivity {
                     intent = new Intent(UserAreaActivity.this, AnunciosActivity.class);
                     UserAreaActivity.this.startActivity(intent);
                 } else if (itemPosition == 3){
-                    intent = new Intent(UserAreaActivity.this, ReuniaoActivity.class);
-                    UserAreaActivity.this.startActivity(intent);
+
+                    consultarReuniao(view);
+
                 }else if (itemPosition == 4){
                     intent = new Intent(UserAreaActivity.this, LocacaoActivity.class);
                     UserAreaActivity.this.startActivity(intent);
@@ -90,5 +104,41 @@ public class UserAreaActivity extends AppCompatActivity {
             }
 
         });
+    }
+
+
+    public void consultarReuniao(View view) {
+
+        final String pEmail = email;
+
+
+        requester = new ReuniaoRequester();
+        if(requester.isConnected(this)) {
+            intent = new Intent(this, ListaReuniao.class);
+
+            mProgress.setVisibility(View.VISIBLE);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        reunioes = requester.get("http://" + servidor + "/ReuniaoAndroid.json", pEmail);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                intent.putExtra(REUNIOES, reunioes);
+                                mProgress.setVisibility(View.INVISIBLE);
+                                startActivity(intent);
+                            }
+                        });
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        } else {
+            Toast toast = Toast.makeText(this, "Rede indisponível!", Toast.LENGTH_LONG);
+            toast.show();
+        }
     }
 }

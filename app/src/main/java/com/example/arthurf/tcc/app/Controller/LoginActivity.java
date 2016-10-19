@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
     public Morador morador;
     public Intent intent;
 
-    final String servidor = "10.0.2.2:8080/tcc_SI_M_12_-_08-10-2016_v1";
+    final String servidor = "10.0.2.2:8080/tcc_SI_M_12_-_18-10-2016_v1";
 
 
 
@@ -197,6 +197,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
             showProgress(false);
         }
     }
+
+
+
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show) {

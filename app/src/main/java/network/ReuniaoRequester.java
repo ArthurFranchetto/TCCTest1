@@ -1,8 +1,11 @@
 package network;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 
+import com.example.arthurf.tcc.app.Controller.ReuniaoActivity;
 import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -14,30 +17,26 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import model.Morador;
+import model.Reuniao;
 
 /**
- * Created by ArthurF on 21/08/16.
+ * Created by ArthurF on 18/10/16.
  */
-public class MoradorRequester {
+public class ReuniaoRequester {
 
     OkHttpClient client = new OkHttpClient();
 
+    public ArrayList<Reuniao> get(String url, String pEmail) throws IOException{
 
+        ArrayList<Reuniao> lista = new ArrayList<>();
 
-    public Morador get(String url, String pEmail, String pPassword) throws IOException{
-
-        Morador morador = new Morador();
-
-        Boolean validacao = false;
-
-        RequestBody formBody = new FormEncodingBuilder() //form
+        RequestBody formBody = new FormEncodingBuilder()
                 .add("email", pEmail)
-                .add("senha", pPassword)
                 .build();
         Request request = new Request.Builder()
                 .url(url)
@@ -48,26 +47,31 @@ public class MoradorRequester {
 
         String jsonStr = response.body().string();
 
+        NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt","BR"));
+
         try {
             JSONArray root = new JSONArray(jsonStr);
             JSONObject item = null;
             for (int i = 0; i < root.length(); i++ ) {
-                item = (JSONObject) root.get(i);
+                item = (JSONObject)root.get(i);
 
-                morador.setNome(item.getString("nome_completo"));
-                morador.setDataNascimento(item.getString("data_nascimento"));
-                morador.setEmail(item.getString("email"));
-                morador.setnApartamento(item.getInt("n_apartamento"));
-                morador.setValidacao((Boolean) item.get("validacao"));
+                int id = item.getInt("idReuniao");
+                String titulo = item.getString("titulo");
+                String pauta = item.getString("pauta");
+                String dataInicio = item.getString("dataInicio");
+                String dataFim = item.getString("dataFim");
 
+                lista.add(new Reuniao(id, titulo, pauta, dataInicio, dataFim));
             }
-
         } catch(JSONException e){
             e.printStackTrace();
         }
-
-        return morador;
-}
+        finally {
+            if(lista.size() == 0)
+                lista.add(new Reuniao(0, "Não encontrada", "Sem pauta", "Sem inicio", "Sem fim"));
+        }
+        return lista;
+    }
 
     public boolean isConnected(Context context) {
         ConnectivityManager connectivityManager =
@@ -76,4 +80,7 @@ public class MoradorRequester {
         return connectivityManager.getActiveNetworkInfo() != null
                 && connectivityManager.getActiveNetworkInfo().isConnected();
     }
+
+
 }
+
