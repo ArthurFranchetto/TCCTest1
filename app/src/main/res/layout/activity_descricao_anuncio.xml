@@ -22,9 +22,112 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
-        android:id="@+id/textView"
+        android:text="Anunciante: "
+        android:id="@+id/anuncio_TextAnunciante"
         android:layout_below="@+id/anuncio_TextTitulo"
-        android:layout_toStartOf="@+id/anuncio_TextTitulo" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="44dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Categoria: "
+        android:id="@+id/anuncio_TextCategoria"
+        android:layout_below="@+id/anuncio_TextAnunciante"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Telefone: "
+        android:id="@+id/anuncio_TextTelefone"
+        android:layout_below="@+id/anuncio_TextCategoria"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Email: "
+        android:id="@+id/anuncio_TextEmail"
+        android:layout_below="@+id/anuncio_TextTelefone"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Data: "
+        android:id="@+id/anuncio_TextData"
+        android:layout_below="@+id/anuncio_TextEmail"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/anuncio_FieldDescricao"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/back"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/anuncio_TextDescricao" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Descrição"
+        android:id="@+id/anuncio_TextDescricao"
+        android:layout_below="@+id/anuncio_TextData2"
+        android:layout_alignStart="@+id/anuncio_TextTitulo" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/anuncio_TextAnunciante2"
+        android:layout_alignBottom="@+id/anuncio_TextAnunciante"
+        android:layout_toEndOf="@+id/anuncio_TextAnunciante" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/anuncio_TextCategoria2"
+        android:layout_toEndOf="@+id/anuncio_TextCategoria"
+        android:layout_alignBottom="@+id/anuncio_TextCategoria" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/anuncio_TextTelefone2"
+        android:layout_below="@+id/anuncio_TextCategoria"
+        android:layout_toEndOf="@+id/anuncio_TextTelefone" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/anuncio_TextEmail2"
+        android:layout_below="@+id/anuncio_TextTelefone"
+        android:layout_toEndOf="@+id/anuncio_TextEmail" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/anuncio_TextData2"
+        android:layout_below="@+id/anuncio_TextEmail"
+        android:layout_toEndOf="@+id/anuncio_TextData" />
 
 </RelativeLayout>

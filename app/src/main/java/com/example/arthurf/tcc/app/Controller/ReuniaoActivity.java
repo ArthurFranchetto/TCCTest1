@@ -21,6 +21,7 @@ public class ReuniaoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reuniao);
+
         txtReuniao = (TextView) findViewById(R.id.txt_reuniao);
         reuniao_DataInicio = (TextView) findViewById(R.id.reuniao_DataInicio);
         reuniao_DataFim = (TextView) findViewById(R.id.reuniao_DataFim);
