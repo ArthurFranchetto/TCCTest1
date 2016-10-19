@@ -19,6 +19,7 @@
 
     <string name="lista_eventos">Lista de Eventos</string>
     <string name="lista_reuniao">Lista de Reuniões</string>
+    <string name="reuniao_pauta">Pauta</string>
 
     <string-array name="titlesAnuncios">
         <item>Item 1</item>

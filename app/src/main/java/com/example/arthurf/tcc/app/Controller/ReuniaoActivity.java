@@ -12,7 +12,7 @@ import model.Reuniao;
 
 public class ReuniaoActivity extends AppCompatActivity {
 
-    private TextView textView;
+    private TextView txtReuniao, reuniao_DataInicio, reuniao_DataFim,reuniao_Pauta;
     public String test;
     public Reuniao reuniao;
 
@@ -21,14 +21,18 @@ public class ReuniaoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reuniao);
-        textView = (TextView) findViewById(R.id.txt_reuniao);
+        txtReuniao = (TextView) findViewById(R.id.txt_reuniao);
+        reuniao_DataInicio = (TextView) findViewById(R.id.reuniao_DataInicio);
+        reuniao_DataFim = (TextView) findViewById(R.id.reuniao_DataFim);
+        reuniao_Pauta = (TextView) findViewById(R.id.reuniao_Pauta);
 
         Intent intent = getIntent();
         final Reuniao reuniao = (Reuniao) intent.getSerializableExtra(ListaReuniao.REUNIAO);
 
-        String s = reuniao.getTitulo();
-
-        textView.setText(s);
+        txtReuniao.setText(reuniao.getTitulo());
+        reuniao_DataInicio.setText(reuniao.getDataI());
+        reuniao_DataFim.setText(reuniao.getDataF());
+        reuniao_Pauta.setText(reuniao.getPauta());
 
     }
 }

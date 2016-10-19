@@ -50,8 +50,13 @@ public class AnuncioRequester {
                 item = (JSONObject) root.get(i);
 
                 lista.setId(item.getInt("id"));
-                lista.setId_locacao(item.getInt("id_locacao"));
-                lista.setNome(item.getString("nome"));
+                lista.setId_locacao(item.getInt("nomeMorador"));
+                lista.setNome(item.getString("anunciante"));
+                lista.setData(item.getString("titulo"));
+                lista.setData(item.getString("categoria"));
+                lista.setData(item.getString("descricao"));
+                lista.setData(item.getString("telefone"));
+                lista.setData(item.getString("email"));
                 lista.setData(item.getString("data"));
             }
 
