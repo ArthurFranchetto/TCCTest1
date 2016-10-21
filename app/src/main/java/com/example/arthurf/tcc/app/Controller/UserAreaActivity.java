@@ -18,8 +18,10 @@ import java.util.ArrayList;
 
 import model.Anuncio;
 import model.Morador;
+import model.Ocorrencia;
 import model.Reuniao;
 import network.AnuncioRequester;
+import network.OcorrenciaRequester;
 import network.ReuniaoRequester;
 
 public class UserAreaActivity extends AppCompatActivity {
@@ -35,12 +37,18 @@ public class UserAreaActivity extends AppCompatActivity {
     final String servidor = "10.0.2.2:8080/tcc_SI_M_12_-_18-10-2016_v1";
     ReuniaoRequester requester;
     AnuncioRequester requesterAnuncios;
+    OcorrenciaRequester requesterOcorrencias;
+
     Intent intent;
     ProgressBar mProgress;
+
     ArrayList<Reuniao> reunioes;
     ArrayList<Anuncio> anuncios;
+    ArrayList<Ocorrencia> ocorrencias;
+
     public final static String REUNIOES = "model.Reunião";
     public final static String ANUNCIOS = "model.Anuncios";
+    public final static String OCORRENCIAS = "model.Ocorrencias";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,8 +98,9 @@ public class UserAreaActivity extends AppCompatActivity {
                     intent = new Intent(UserAreaActivity.this, EventosActivity.class);
                     UserAreaActivity.this.startActivity(intent);
                 } else if (itemPosition == 1){
-                    intent = new Intent(UserAreaActivity.this, OcorrenciasActivity.class);
-                    UserAreaActivity.this.startActivity(intent);
+
+                    consultarOcorrencia(view);
+
                 } else if (itemPosition == 2){
 
                     consultarAnuncio(view);
@@ -166,6 +175,41 @@ public class UserAreaActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 intent.putExtra(ANUNCIOS, anuncios);
+                                mProgress.setVisibility(View.INVISIBLE);
+                                startActivity(intent);
+                            }
+                        });
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        } else {
+            Toast toast = Toast.makeText(this, "Rede indisponível!", Toast.LENGTH_LONG);
+            toast.show();
+        }
+    }
+
+    public void consultarOcorrencia(View view) {
+
+        final String pEmail = email;
+
+
+        requesterOcorrencias = new OcorrenciaRequester();
+        if(requesterOcorrencias.isConnected(this)) {
+            intent = new Intent(this, ListaDeOcorrenciasActivity.class);
+
+            mProgress.setVisibility(View.VISIBLE);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        ocorrencias = requesterOcorrencias.get("http://" + servidor + "/OcorrenciaAndroid.json", pEmail);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                intent.putExtra(OCORRENCIAS, ocorrencias);
                                 mProgress.setVisibility(View.INVISIBLE);
                                 startActivity(intent);
                             }
