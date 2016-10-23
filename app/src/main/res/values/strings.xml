@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TCC</string>
+    <string name="app_name">SISCON</string>
 
     <string name="usuario">Email</string>
     <string name="senha">Senha</string>
@@ -16,12 +16,16 @@
     <string name="ocorrencias">Ocorrências</string>
     <string name="anuncios">Anúncios</string>
     <string name="locacao">Locação do salão</string>
+    <string name="ocorrencia">Ocorrencia</string>
 
     <string name="lista_eventos">Lista de Eventos</string>
     <string name="lista_reuniao">Lista de Reuniões</string>
     <string name="reuniao_pauta">Pauta</string>
 
     <string name="lista_Ocorrencias">Lista de Ocorrências</string>
+
+    <color name="blue">#2c3338</color>
+    <color name="buttonBlue">#23afc7</color>
 
     <string-array name="titlesAnuncios">
         <item>Item 1</item>

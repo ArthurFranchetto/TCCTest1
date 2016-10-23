@@ -60,15 +60,16 @@ public class ReuniaoRequester {
                 String pauta = item.getString("pauta");
                 String dataInicio = item.getString("dataInicio");
                 String dataFim = item.getString("dataFim");
+                String status = item.getString("status");
 
-                lista.add(new Reuniao(id, titulo, pauta, dataInicio, dataFim));
+                lista.add(new Reuniao(id, titulo, pauta, dataInicio, dataFim, status));
             }
         } catch(JSONException e){
             e.printStackTrace();
         }
         finally {
             if(lista.size() == 0)
-                lista.add(new Reuniao(0, "Não encontrada", "Sem pauta", "Sem inicio", "Sem fim"));
+                lista.add(new Reuniao(0, "Não encontrada", "Sem pauta", "Sem inicio", "Sem fim", "Sem status"));
         }
         return lista;
     }

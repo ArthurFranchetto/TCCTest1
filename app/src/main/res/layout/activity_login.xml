@@ -9,6 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/blue"
     >
     <!--tools:context=".WelcomeActivity">-->
 
@@ -30,9 +31,17 @@
             android:id="@+id/email_login_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:weightSum="1">
 
-    <AutoCompleteTextView
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/building"/>
+
+            <AutoCompleteTextView
         android:id="@+id/etUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,7 +52,9 @@
         android:layout_alignParentTop="true"
         android:ems="10"
         android:inputType="textEmailAddress"
-        android:hint="@string/usuario"/>
+        android:hint="@string/usuario"
+        android:background="@drawable/back"
+        android:layout_marginTop="100dp" />
 
     <EditText
         android:id="@+id/etPassword"
@@ -59,7 +70,10 @@
         android:imeActionLabel="@string/acessar"
         android:imeOptions="actionUnspecified"
         android:hint="Password"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:background="@drawable/back"
+        android:layout_marginTop="20dp"
+        android:typeface="monospace"/>
 
     <Button
         android:id="@+id/bSignIn"
@@ -70,8 +84,11 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/etPassword"
-        android:text="Sign In"
-        android:layout_gravity="center_horizontal" />
+        android:text="Entrar"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/backbutton"
+        android:layout_marginTop="10dp"
+        android:typeface="monospace"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

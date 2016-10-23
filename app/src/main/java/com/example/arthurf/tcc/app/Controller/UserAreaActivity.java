@@ -34,7 +34,7 @@ public class UserAreaActivity extends AppCompatActivity {
     public static String data;
     public static int apartamento ;
     public static Boolean validacao;
-    final String servidor = "10.0.2.2:8080/tcc_SI_M_12_-_18-10-2016_v1";
+    final String servidor = "10.0.2.2:8080/tcc_SI_M_12_-_21-10-2016_v4";
     ReuniaoRequester requester;
     AnuncioRequester requesterAnuncios;
     OcorrenciaRequester requesterOcorrencias;
@@ -55,7 +55,7 @@ public class UserAreaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_area);
 
-        String[] opcoes = new String[]{ "Lista de convidados", "Ocorrências", "Anúncios", "Reunião", "Locação de salão"};
+        String[] opcoes = new String[]{/*"Lista de convidados",*/ "Ocorrências", "Anúncios", "Reunião", /*"Locação de salão"*/};
 
         listView = (ListView) findViewById(R.id.list);
 
@@ -94,18 +94,18 @@ public class UserAreaActivity extends AppCompatActivity {
                 Intent intent;
 
 
-                if (itemPosition == 0){
+               /* if (itemPosition == 0){
                     intent = new Intent(UserAreaActivity.this, EventosActivity.class);
                     UserAreaActivity.this.startActivity(intent);
-                } else if (itemPosition == 1){
+                } else*/ if (itemPosition == 0){
 
                     consultarOcorrencia(view);
 
-                } else if (itemPosition == 2){
+                } else if (itemPosition == 1){
 
                     consultarAnuncio(view);
 
-                } else if (itemPosition == 3){
+                } else if (itemPosition == 2){
 
                     consultarReuniao(view);
 

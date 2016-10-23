@@ -7,7 +7,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".Controller.UserAreaActivity">
+    tools:context=".Controller.UserAreaActivity"
+    android:background="@color/blue">
 
     <TextView
         android:layout_width="match_parent"
@@ -19,7 +20,9 @@
         android:layout_below="@+id/editText2"
         android:layout_alignParentStart="true"
         android:textAlignment="center"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:textColor="#ffffff"
+        android:typeface="monospace"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -27,7 +30,9 @@
         android:id="@+id/editText2"
         android:text="@string/bem_vindo"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textColor="#ffffff"
+        android:typeface="monospace"/>
 
     <ListView
         android:layout_width="wrap_content"
@@ -35,7 +40,11 @@
         android:id="@+id/list"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/name"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/back"
+        android:layout_alignParentTop="false"
+        android:layout_marginTop="20dp"
+        android:typeface="monospace"/>
 
     <LinearLayout
         android:orientation="horizontal"

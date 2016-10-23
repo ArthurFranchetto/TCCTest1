@@ -12,8 +12,7 @@ import model.Reuniao;
 
 public class ReuniaoActivity extends AppCompatActivity {
 
-    private TextView txtReuniao, reuniao_DataInicio, reuniao_DataFim,reuniao_Pauta;
-    public String test;
+    private TextView txtReuniao, reuniao_DataInicio, reuniao_DataFim,reuniao_Pauta, reuniao_Status;
     public Reuniao reuniao;
 
 
@@ -23,8 +22,9 @@ public class ReuniaoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reuniao);
 
         txtReuniao = (TextView) findViewById(R.id.txt_reuniao);
-        reuniao_DataInicio = (TextView) findViewById(R.id.reuniao_DataInicio);
-        reuniao_DataFim = (TextView) findViewById(R.id.reuniao_DataFim);
+        reuniao_DataInicio = (TextView) findViewById(R.id.reuniao_DataInicio2);
+        reuniao_DataFim = (TextView) findViewById(R.id.reuniao_DataFim2);
+        reuniao_Status = (TextView) findViewById(R.id.reuniao_Status2);
         reuniao_Pauta = (TextView) findViewById(R.id.reuniao_Pauta);
 
         Intent intent = getIntent();
@@ -33,6 +33,7 @@ public class ReuniaoActivity extends AppCompatActivity {
         txtReuniao.setText(reuniao.getTitulo());
         reuniao_DataInicio.setText(reuniao.getDataI());
         reuniao_DataFim.setText(reuniao.getDataF());
+        reuniao_Status.setText(reuniao.getStatus());
         reuniao_Pauta.setText(reuniao.getPauta());
 
     }

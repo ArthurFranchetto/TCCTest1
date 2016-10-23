@@ -28,5 +28,96 @@
             />
     </LinearLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Tipo:"
+        android:id="@+id/ocorrencia_TextTipo"
+        android:layout_below="@+id/linearLayout"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="30dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Data: "
+        android:id="@+id/ocorrencia_textData"
+        android:layout_below="@+id/ocorrencia_TextTipo"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Assunto: "
+        android:id="@+id/ocorrencia_textAssunto"
+        android:layout_below="@+id/ocorrencia_textData"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/textView4"
+        android:layout_below="@+id/linearLayout"
+        android:layout_toEndOf="@+id/ocorrencia_TextTipo"
+        android:layout_above="@+id/ocorrencia_TextTipo" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/ocorrencia_TextTipo2"
+        android:layout_marginLeft="10dp"
+        android:layout_alignTop="@+id/ocorrencia_TextTipo"
+        android:layout_alignStart="@+id/textView4"
+        android:layout_above="@+id/ocorrencia_textData" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/ocorrencia_textData2"
+        android:layout_alignTop="@+id/ocorrencia_textData"
+        android:layout_toEndOf="@+id/ocorrencia_textData"
+        android:layout_marginLeft="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/ocorrencia_textAssunto2"
+        android:layout_alignTop="@+id/ocorrencia_textAssunto"
+        android:layout_toEndOf="@+id/ocorrencia_textAssunto"
+        android:layout_marginLeft="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/textView"
+        android:layout_below="@+id/ocorrencia_textAssunto2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/ocorrencia_textField"
+        android:layout_below="@+id/textView"
+        android:background="@drawable/back"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignEnd="@+id/linearLayout" />
+
 
 </RelativeLayout>

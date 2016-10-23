@@ -69,5 +69,44 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/reuniao_DataInicio2"
+        android:layout_alignBottom="@+id/reuniao_DataInicio"
+        android:layout_toEndOf="@+id/reuniao_DataInicio"
+        android:layout_marginLeft="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/reuniao_DataFim2"
+        android:layout_below="@+id/reuniao_DataInicio"
+        android:layout_toEndOf="@+id/reuniao_DataFim"
+        android:layout_marginLeft="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Status: "
+        android:id="@+id/reunia_Status"
+        android:layout_below="@+id/reuniao_DataFim"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/reuniao_Status2"
+        android:layout_alignTop="@+id/reunia_Status"
+        android:layout_toEndOf="@+id/reunia_Status"
+        android:layout_marginLeft="10dp" />
+
 
 </RelativeLayout>
